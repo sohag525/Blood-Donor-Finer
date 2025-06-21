@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ডোনার ফাইন্ডার - দিনাজপুরের জন্য রক্তদাতা অ্যাপ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #D32F2F; /* Red for blood donation */
+            --secondary-color: #00796B; /* Teal/Green, can be used for secondary actions or accents */
+            --text-color: #333333;
+            --light-gray: #f4f4f4;
+            --white: #ffffff;
+            --dark-gray: #555555;
+            --font-bengali: 'Hind Siliguri', sans-serif;
+            --font-english: 'Poppins', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-bengali);
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--white);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: auto;
+            overflow: hidden;
+            padding: 0 20px;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: var(--white);
+            color: var(--text-color);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            font-family: var(--font-english); /* Logo can be English if preferred */
+            display: flex;
+            align-items: center;
+        }
+        .navbar .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+
+        .navbar nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        .navbar nav ul li {
+            margin-left: 20px;
+        }
+
+        .navbar nav ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar nav ul li a:hover,
+        .navbar nav ul li a.active {
+            color: var(--primary-color);
+        }
+
+        .navbar .btn-download-nav {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 0.6rem 1.2rem;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .navbar .btn-download-nav:hover {
+            background-color: #B71C1C; /* Darker red */
+            transform: translateY(-2px);
+        }
+        
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding-top: 120px; /* Adjust for fixed navbar height */
+            padding-bottom: 60px;
+            background: linear-gradient(to right, rgba(245, 247, 250, 0.95), rgba(220, 220, 220, 0.95)), url('https://via.placeholder.com/1500x800.png?text=Background+Texture') no-repeat center center/cover; /* Placeholder background */
+            text-align: center;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .hero .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-content {
+            max-width: 700px;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            line-height: 1.3;
+        }
+
+        .hero p.subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark-gray);
+            font-weight: 500;
+        }
+        
+        .hero p.description {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: var(--text-color);
+        }
+
+        .btn-download-hero {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 0.8rem 2rem;
+            font-size: 1.1rem;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: inline-block;
+            box-shadow: 0 5px 15px rgba(211, 47, 47, 0.4);
+        }
+
+        .btn-download-hero:hover {
+            background-color: #B71C1C;
+            transform: translateY(-3px);
+        }
+
+        .hero-app-mockup {
+            margin-top: 3rem;
+            max-width: 80%; /* Adjust as needed */
+        }
+
+        .hero-app-mockup img {
+            max-width: 350px; /* Adjust based on your mockup */
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        /* Section Styling */
+        .section {
+            padding: 60px 0;
+        }
+
+        .section-light {
+            background-color: var(--light-gray);
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--dark-gray);
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Features Section */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+
+        .feature-card i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .feature-card p {
+            font-size: 0.95rem;
+            color: var(--dark-gray);
+        }
+
+        /* How it Works Section */
+        .how-it-works-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .how-it-works-step {
+            text-align: center;
+        }
+
+        .how-it-works-step img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+        }
+        
+        .how-it-works-step h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Call to Action Section */
+        .cta-section {
+            background-color: var(--primary-color);
+            color: var(--white);
+            text-align: center;
+        }
+        .cta-section .section-title, .cta-section .section-subtitle {
+            color: var(--white);
+        }
+        .cta-section .btn-download-hero {
+            background-color: var(--white);
+            color: var(--primary-color);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        .cta-section .btn-download-hero:hover {
+            background-color: #f0f0f0;
+        }
+
+
+        /* FAQ Section */
+        .faq-item {
+            background: var(--white);
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            width: 100%;
+            background: var(--white);
+            border: none;
+            padding: 1.2rem 1.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-color);
+            font-family: var(--font-bengali);
+        }
+        
+        .faq-question:hover {
+            background-color: #f9f9f9;
+        }
+
+        .faq-question i {
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-question.active i {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+        }
+        
+        .faq-answer p {
+            padding-bottom: 1.2rem;
+            font-size: 1rem;
+            color: var(--dark-gray);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark-gray);
+            color: var(--light-gray);
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .footer p {
+            font-size: 0.9rem;
+        }
+        
+        .footer a {
+            color: var(--white);
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar .container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .navbar nav {
+                width: 100%;
+                margin-top: 10px;
+                display: none; /* Initially hidden */
+            }
+            .navbar nav.active {
+                display: block; /* Show when active */
+            }
+            .navbar nav ul {
+                flex-direction: column;
+                width: 100%;
+            }
+            .navbar nav ul li {
+                margin: 10px 0;
+                text-align: center;
+            }
+            .navbar nav ul li a {
+                display: block;
+                padding: 10px;
+            }
+            .navbar .btn-download-nav {
+                display: block;
+                text-align: center;
+                margin-top: 10px;
+                width: 100%;
+            }
+            .menu-toggle {
+                display: block;
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+            }
+            
+            .hero {
+                padding-top: 80px; /* Reduced for smaller navbar */
+            }
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            .hero p.subtitle {
+                font-size: 1.2rem;
+            }
+            .hero p.description {
+                font-size: 1rem;
+            }
+            .hero-app-mockup img {
+                max-width: 280px;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+            .features-grid, .how-it-works-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="container">
+            <a href="#" class="logo">
+                <!-- You can replace this with an actual logo image if you have one -->
+                <!-- <img src="placeholder-logo.png" alt="Donor Finder Logo"> -->
+                ডোনার ফাইন্ডার
+            </a>
+            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav id="nav-menu">
+                <ul>
+                    <li><a href="#hero" class="active">হোম</a></li>
+                    <li><a href="#features">ফিচারসমূহ</a></li>
+                    <li><a href="#how-it-works">কিভাবে কাজ করে</a></li>
+                    <li><a href="#faq">জিজ্ঞাসা</a></li>
+                    <li><a href="https://docs.google.com/uc?export=download&id=1fR1commvip8b1B5fAc8ZMLrhl2I8HRIE" class="btn-download-nav" target="_blank">অ্যাপ ডাউনলোড</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>জরুরী রক্তের প্রয়োজনে দিশেহারা?</h1>
+                <p class="subtitle">দিনাজপুরের মানুষের জন্য একটি জীবন রক্ষাকারী উদ্যোগ - ডোনার ফাইন্ডার অ্যাপ।</p>
+                <p class="description">আপনার এলাকার রক্তদাতাদের সাথে সহজেই যোগাযোগ করুন এবং জীবন বাঁচাতে সাহায্য করুন। রক্ত দিন, জীবন বাঁচান।</p>
+                <a href="https://docs.google.com/uc?export=download&id=1fR1commvip8b1B5fAc8ZMLrhl2I8HRIE" class="btn-download-hero" target="_blank">
+                    <i class="fas fa-download"></i> অ্যাপটি ডাউনলোড করুন
+                </a>
+            </div>
+            <div class="hero-app-mockup">
+                <!-- Replace with an actual app mockup image -->
+                <img src="https://i.imgur.com/GkmhdqN.png" alt="ডোনার ফাইন্ডার অ্যাপ মকআপ">
+                <!-- Ideally, use a mockup like the one at 0:04 in the video, or the collage from 0:28 -->
+                <!-- For example: https://via.placeholder.com/300x600.png?text=App+Screenshot -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Statement / Intro (from video) -->
+    <section id="problem" class="section">
+        <div class="container">
+            <h2 class="section-title">আপনার রক্তে বাঁচুক প্রাণ</h2>
+            <p class="section-subtitle">
+                জরুরী মুহূর্তে রক্তের প্রয়োজন হলে সঠিক সময়ে রক্তদাতা খুঁজে পাওয়া অনেক কঠিন হয়ে পড়ে। ডোনার ফাইন্ডার অ্যাপ এই কাজটি সহজ করে দেয়, যাতে দিনাজপুরের মানুষ প্রয়োজনে দ্রুত রক্ত পেতে পারে।
+            </p>
+        </div>
+    </section>
+
+
+    <!-- Features Section -->
+    <section id="features" class="section section-light">
+        <div class="container">
+            <h2 class="section-title">অ্যাপটির প্রধান ফিচারসমূহ</h2>
+            <p class="section-subtitle">ডোনার ফাইন্ডার অ্যাপ আপনাকে যেভাবে সাহায্য করতে পারে:</p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-search-location"></i>
+                    <h3>দ্রুত রক্তদাতা অনুসন্ধান</h3>
+                    <p>আপনার প্রয়োজনীয় রক্তের গ্রুপ এবং এলাকা অনুযায়ী সহজেই রক্তদাতা খুঁজে বের করুন।</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-filter"></i>
+                    <h3>এলাকা ও প্রাপ্যতা ফিল্টার</h3>
+                    <p>নির্দিষ্ট এলাকা এবং রক্তদাতার রক্তদানের প্রস্তুতি অনুযায়ী তালিকা ফিল্টার করে দেখুন।</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-phone-alt"></i>
+                    <h3>সহজ যোগাযোগ</h3>
+                    <p>রক্তদাতার ফোন নম্বরে সরাসরি কল করুন অথবা নম্বর কপি করে মেসেজ বা অন্য মাধ্যমে যোগাযোগ করুন।</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-user-plus"></i>
+                    <h3>রক্তদাতা হোন</h3>
+                    <p>অ্যাপে সহজেই রেজিস্টার করে একজন জীবন রক্ষাকারী রক্তদাতা হিসেবে নিজেকে যুক্ত করুন এবং অন্যের জীবন বাঁচান।</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="section">
+        <div class="container">
+            <h2 class="section-title">কিভাবে অ্যাপটি ব্যবহার করবেন?</h2>
+            <p class="section-subtitle">মাত্র কয়েকটি সহজ ধাপে রক্তদাতা খুঁজুন বা রক্তদাতা হিসেবে যোগ দিন।</p>
+            <div class="how-it-works-grid">
+                <div class="how-it-works-step">
+                    <!-- Replace with screenshot from video 0:10 (Home Screen) -->
+                    <img src="https://i.imgur.com/sSfc08p.png" alt="অ্যাপ হোম স্ক্রিন">
+                    <h4>১. অ্যাপ ওপেন করুন</h4>
+                    <p>হোম স্ক্রিন থেকে "রক্তদাতা খুঁজুন" বা "রক্তদাতা হোন" অপশন নির্বাচন করুন।</p>
+                </div>
+                <div class="how-it-works-step">
+                    <!-- Replace with screenshot from video 0:12 (Blood Group Selection) -->
+                    <img src="https://i.imgur.com/8Qe76wE.png" alt="ব্লাড গ্রুপ নির্বাচন">
+                    <h4>২. ব্লাড গ্রুপ নির্বাচন</h4>
+                    <p>প্রয়োজনীয় রক্তের গ্রুপ নির্বাচন করুন, সাথে সাথে উপলব্ধ ডোনার সংখ্যা দেখুন।</p>
+                </div>
+                <div class="how-it-works-step">
+                     <!-- Replace with screenshot from video 0:14 (Donor List & Filter) -->
+                    <img src="https://i.imgur.com/k91B0v2.png" alt="রক্তদাতা তালিকা ও ফিল্টার">
+                    <h4>৩. তালিকা ও ফিল্টার</h4>
+                    <p>এলাকা নির্বাচন করে ডোনারদের তালিকা দেখুন এবং প্রয়োজন অনুযায়ী ফিল্টার করুন।</p>
+                </div>
+                <div class="how-it-works-step">
+                     <!-- Replace with screenshot from video 0:23 (Contact Modal) -->
+                    <img src="https://i.imgur.com/g0t6M30.png" alt="যোগাযোগ করুন">
+                    <h4>৪. যোগাযোগ করুন</h4>
+                    <p>পছন্দের ডোনারের সাথে "যোগাযোগ করুন" বাটনে ক্লিক করে সরাসরি কল করুন।</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="section cta-section">
+        <div class="container">
+            <h2 class="section-title">ডোনার ফাইন্ডার অ্যাপ আসছে খুব শীঘ্রই!</h2>
+            <p class="section-subtitle">রক্তদাতা হিসেবে যুক্ত হতে এবং এই মহৎ উদ্যোগে সামিল হতে অ্যাপটি ডাউনলোড করুন। আপনার সামান্য সাহায্য বাঁচাতে পারে একটি মূল্যবান জীবন।</p>
+            <a href="https://docs.google.com/uc?export=download&id=1fR1commvip8b1B5fAc8ZMLrhl2I8HRIE" class="btn-download-hero" target="_blank">
+                <i class="fas fa-heartbeat"></i> এখনই ডাউনলোড করুন
+            </a>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="section section-light">
+        <div class="container">
+            <h2 class="section-title">সাধারণ জিজ্ঞাসা</h2>
+            <p class="section-subtitle">রক্তদান এবং ডোনার ফাইন্ডার অ্যাপ সম্পর্কিত কিছু সাধারণ প্রশ্নের উত্তর।</p>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>১. জরুরী রক্তের প্রয়োজনে দিশেহারা?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>দিনাজপুরের জন্য ডোনার ফাইন্ডার অ্যাপের মাধ্যমে আপনি সহজেই রক্তদাতা খুঁজে পাবেন। অ্যাপটি আপনাকে সঠিক সময়ে সঠিক রক্তদাতার সাথে যুক্ত হতে সাহায্য করবে।</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>২. রক্তদাতা কিভাবে খুঁজবো?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>অ্যাপের "রক্তদাতা খুঁজুন" অপশনে গিয়ে রক্তের গ্রুপ ও আপনার নিকটবর্তী এলাকা সিলেক্ট করে সহজেই ডোনার খুঁজে নিতে পারবেন। ফিল্টার ব্যবহার করে আপনি আরও নির্দিষ্টভাবে অনুসন্ধান করতে পারেন।</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>৩. আমি কিভাবে রক্তদাতা হিসেবে যোগ দিতে পারি?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>অ্যাপের "রক্তদাতা হোন" অপশনে গিয়ে আপনার নাম, রক্তের গ্রুপ, যোগাযোগের নম্বর এবং এলাকার তথ্য দিয়ে সহজেই রেজিস্টার করতে পারবেন। আপনার তথ্য সুরক্ষিত থাকবে।</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>৪. অ্যাপটি কোন এলাকার জন্য?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>এই অ্যাপটি প্রাথমিকভাবে দিনাজপুর সদর এবং এর আশেপাশের এলাকার (যেমন ফুলবাড়ী, নবাবগঞ্জ, বিরামপুর ইত্যাদি) মানুষের জন্য তৈরি করা হয়েছে।</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>৫. রক্তদানের জন্য কারা উপযুক্ত?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>সাধারণত ১৮ থেকে ৬০ বছর বয়সী সুস্বাস্থ্যের অধিকারী (যেমন - নির্দিষ্ট ওজন থাকা, কোনো জটিল রোগ না থাকা) যে কেউ রক্তদান করতে পারেন। রক্তদানের পূর্বে কিছু সাধারণ স্বাস্থ্য পরীক্ষা করা হয়। বিস্তারিত তথ্যের জন্য ডাক্তারের পরামর্শ নিন।</p>
+                    </div>
+                </div>
+                 <div class="faq-item">
+                    <button class="faq-question">
+                        <span>৬. কতদিন পর পর রক্তদান করা যায়?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>একজন সুস্থ পুরুষ সাধারণত ৩ মাস পর পর এবং একজন সুস্থ মহিলা ৪ মাস পর পর রক্তদান করতে পারেন। এটি ব্যক্তির শারীরিক অবস্থার উপরও নির্ভর করে।</p>
+                    </div>
+                </div>
+                 <div class="faq-item">
+                    <button class="faq-question">
+                        <span>৭. রক্ত দিলে কি কোনো সমস্যা হয়?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>সঠিক নিয়ম মেনে রক্তদান করলে সাধারণত কোনো গুরুতর সমস্যা হয় না। সামান্য দুর্বলতা বা মাথা ঘোরা অনুভব হতে পারে যা কিছুক্ষণের মধ্যেই ঠিক হয়ে যায়। রক্তদানের পর পর্যাপ্ত বিশ্রাম ও তরল খাবার গ্রহণ করা উচিত।</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; <span id="currentYear"></span> ডোনার ফাইন্ডার। সর্বস্বত্ব সংরক্ষিত।</p>
+            <p>দিনাজপুরের মানুষের সেবায় একটি উদ্যোগ।</p>
+            <!-- <p>Website designed by [Your Name/Org if desired, or remove this line]</p> -->
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for nav links
+        document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+                // For mobile menu: close menu after click
+                if (document.getElementById('nav-menu').classList.contains('active')) {
+                    document.getElementById('nav-menu').classList.remove('active');
+                    document.getElementById('menu-toggle').querySelector('i').classList.replace('fa-times', 'fa-bars');
+                }
+                // Update active link
+                document.querySelectorAll('nav a').forEach(link => link.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // FAQ Accordion
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const icon = question.querySelector('i');
+                
+                question.classList.toggle('active');
+
+                if (question.classList.contains('active')) {
+                    answer.style.maxHeight = answer.scrollHeight + "px";
+                    answer.style.paddingTop = "1.2rem"; // Match padding-bottom
+                    answer.style.paddingBottom = "1.2rem";
+                    icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
+                } else {
+                    answer.style.maxHeight = 0;
+                    answer.style.paddingTop = 0;
+                    answer.style.paddingBottom = 0;
+                    icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
+                }
+
+                // Close other open FAQs
+                faqQuestions.forEach(otherQuestion => {
+                    if (otherQuestion !== question && otherQuestion.classList.contains('active')) {
+                        otherQuestion.classList.remove('active');
+                        otherQuestion.nextElementSibling.style.maxHeight = 0;
+                        otherQuestion.nextElementSibling.style.paddingTop = 0;
+                        otherQuestion.nextElementSibling.style.paddingBottom = 0;
+                        otherQuestion.querySelector('i').classList.replace('fa-chevron-up', 'fa-chevron-down');
+                    }
+                });
+            });
+        });
+
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            const icon = menuToggle.querySelector('i');
+            if (navMenu.classList.contains('active')) {
+                icon.classList.replace('fa-bars', 'fa-times');
+            } else {
+                icon.classList.replace('fa-times', 'fa-bars');
+            }
+        });
+
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        
+        // Active link highlighting on scroll
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('nav ul li a');
+            const navbarHeight = document.querySelector('.navbar').offsetHeight;
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - navbarHeight - 50; // Add some offset
+                if (pageYOffset >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+            // Ensure "Home" is active if at top or no section matches (e.g., hero section)
+            if (current === 'hero' || current === '') {
+                 document.querySelector('nav ul li a[href="#hero"]').classList.add('active');
+            }
+        });
+
+    </script>
+</body>
+</html>
